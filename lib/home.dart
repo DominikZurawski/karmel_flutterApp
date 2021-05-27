@@ -5,10 +5,7 @@ import 'package:karmel_app/constants/constants.dart';
 import 'package:karmel_app/calendar.dart';
 
 //import 'package:flutter_firebase/landing.dart';
-
-
 class Home extends StatefulWidget {
-
   //for getting the user data from the LoginPage
   /*const Home({
     Key key,
@@ -16,13 +13,10 @@ class Home extends StatefulWidget {
   }) : super(key: key);
 
   final FirebaseUser user;*/
-
-
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   int _choice = 0;
 
   //for saving the index value of selected bottomNavigatinItem
@@ -31,28 +25,60 @@ class _HomeState extends State<Home> {
       _choice = index;
     });
   }
-
   /*final List<Widget> _selectedItem = [
     PlaceholderWidget(Colors.greenAccent),
     PlaceholderWidget(Colors.blue),
   ];*/
-
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
+        backgroundColor: Colors.lightBlueAccent,
+        body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(
+            top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Hello',
+                style: TextStyle(
+                color: Colors.white,
+                fontSize: 50.0,
+                fontWeight: FontWeight.w700,
+                ),
+            ),
+            ],
+            ),
+          ),
+            Expanded(
+              child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+              ),
+              ),
+              ),
+              ),
+              ],
+              ),
 
+
+        /*
+        appBar: AppBar(
           backgroundColor: Color(0xFFBD3E07),
           title: Text('Wody Karmelu'),
           actions: <Widget>[
-
-            //for Search Button
             IconButton(
               onPressed: (){
-                // seachSnackbar(context);
               },
               icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
             ),
@@ -97,6 +123,7 @@ class _HomeState extends State<Home> {
 
           ],
         ),
+*/
 
         //setting the placeHolder Widget
         //body: _selectedItem[_choice],
@@ -110,20 +137,17 @@ class _HomeState extends State<Home> {
         //Bottom Navigation bar
         bottomNavigationBar: onBottomNavigation(context),
 
-      ),
+    ),
     );
+
   }
 
 
   // Navigation Drawer
   Widget userDrawer(){
-
     return ListView(
       children: <Widget>[
-
-
         new UserAccountsDrawerHeader(
-
           accountName: new Text('Karmelici Bosi'),
           //accountEmail: new Text(widget.user.email),
 
@@ -247,7 +271,6 @@ class _HomeState extends State<Home> {
       print('Ustawienia');
     }
   }
-
 
 
   //for bottom navigationbar
