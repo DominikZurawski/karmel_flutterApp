@@ -194,9 +194,9 @@ class _HomeState extends State<Home> {
         new InkWell(
           onTap: (){
             Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (context) => Calendar()),
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Calendar()),
             );
 
           },
@@ -285,7 +285,7 @@ class _HomeState extends State<Home> {
       items: [
 
         BottomNavigationBarItem(
-          
+
             icon: Icon(Icons.bookmark,color: Color(0xFF842203)),
             title: new Text('Kołatka',style: TextStyle(color: Colors.blue))
         ),
