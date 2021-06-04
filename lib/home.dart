@@ -1,84 +1,34 @@
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:karmel_app/bottom_navigation_placeholder/placeholder.dart';
 import 'package:karmel_app/constants/constants.dart';
 import 'package:karmel_app/calendar.dart';
 
-//import 'package:flutter_firebase/landing.dart';
 class Home extends StatefulWidget {
-  //for getting the user data from the LoginPage
-  /*const Home({
-    Key key,
-    this.user
-  }) : super(key: key);
-
-  final FirebaseUser user;*/
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _choice = 0;
 
+  int _choice = 0;
   //for saving the index value of selected bottomNavigatinItem
   void selectedTab(index) {
     setState(() {
       _choice = index;
     });
   }
-  /*final List<Widget> _selectedItem = [
-    PlaceholderWidget(Colors.greenAccent),
-    PlaceholderWidget(Colors.blue),
-  ];*/
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.lightBlueAccent,
-        body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(
-            top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
-            child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Hello',
-                style: TextStyle(
-                color: Colors.white,
-                fontSize: 50.0,
-                fontWeight: FontWeight.w700,
-                ),
-            ),
-            ],
-            ),
-          ),
-            Expanded(
-              child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-              ),
-              ),
-              ),
-              ),
-              ],
-              ),
-
-
-        /*
         appBar: AppBar(
-          backgroundColor: Color(0xFFBD3E07),
+          //backgroundColor: Color(0xFFBD3E07),
           title: Text('Wody Karmelu'),
           actions: <Widget>[
+            //for Search Button
             IconButton(
               onPressed: (){
+                // seachSnackbar(context);
               },
               icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
             ),
@@ -104,10 +54,8 @@ class _HomeState extends State<Home> {
             PopupMenuButton<String>(
                 onSelected: onMenuSelected,
                 itemBuilder:(context){
-
                   // returning the list of item
                   return Constants.select.map((String choice){
-
                     //passing the value
                     onMenuSelected(choice);
 
@@ -115,39 +63,28 @@ class _HomeState extends State<Home> {
                       value: choice,
                       child: Text(choice),
                     );
-
                   }).toList();
-
                 }
             ),
-
           ],
         ),
-*/
-
-        //setting the placeHolder Widget
-        //body: _selectedItem[_choice],
-
-
         // For Drawer
         drawer: new Drawer(
           child: userDrawer(),
         ),
-
         //Bottom Navigation bar
         bottomNavigationBar: onBottomNavigation(context),
 
-    ),
+      ),
     );
-
   }
-
 
   // Navigation Drawer
   Widget userDrawer(){
     return ListView(
       children: <Widget>[
         new UserAccountsDrawerHeader(
+
           accountName: new Text('Karmelici Bosi'),
           //accountEmail: new Text(widget.user.email),
 
@@ -229,15 +166,6 @@ class _HomeState extends State<Home> {
             leading: new Icon(Icons.help,color: Colors.lightBlue,),
           ),
         ),
-        //
-        ///
-        ///
-        ///
-        ///
-        // Logout from Account
-        ///
-        ///
-        ///
         new InkWell(
           onTap: (){
             //FirebaseAuth.instance.signOut();
@@ -252,19 +180,12 @@ class _HomeState extends State<Home> {
             title: new Text('Sign out',style: new TextStyle(color:Colors.deepOrange),),
             leading: new Icon(Icons.exit_to_app,color: Colors.lightBlue,),
           ),
-          ///
-          ///
-          ///
-          ///
         ),
       ],
     );
-
   }
-
   //When we select any Popup Menu
   void onMenuSelected(String choice){
-
     if(choice==Constants.aboutUs){
       print("O nas");
     }else if(choice==Constants.settings){
@@ -272,20 +193,15 @@ class _HomeState extends State<Home> {
     }
   }
 
-
   //for bottom navigationbar
   Widget onBottomNavigation(BuildContext context){
-
     return BottomNavigationBar(
-
 
       //current index will manage wchich element need to be selected
       currentIndex: _choice,
       type: BottomNavigationBarType.shifting,
       items: [
-
         BottomNavigationBarItem(
-
             icon: Icon(Icons.bookmark,color: Color(0xFF842203)),
             title: new Text('Kołatka',style: TextStyle(color: Colors.blue))
         ),
@@ -298,13 +214,10 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.account_circle,color: Color(0xFF842203)),
             title: new Text('Studnia',style: TextStyle(color: Colors.blue),)
         ),
-
       ],
-
       onTap: (index){
         selectedTab(index);
       },
     );
   }
-
 }
