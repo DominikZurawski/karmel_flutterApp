@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import 'package:karmel_app/utils.dart';
-
 
 /// The hove page which hosts the calendar
 class Calendar extends StatefulWidget {
@@ -88,11 +86,12 @@ class _MyHomePageState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TableCalendar - Events'),
+        title: Text('Kalendarz'),
       ),
       body: Column(
         children: [
           TableCalendar<Event>(
+            locale: 'pl_PL',
             firstDay: kFirstDay,
             lastDay: kLastDay,
             focusedDay: _focusedDay,
