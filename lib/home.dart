@@ -21,53 +21,89 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          //backgroundColor: Color(0xFFBD3E07),
-          title: Text('Wody Karmelu'),
-          actions: <Widget>[
-            //for Search Button
-            IconButton(
-              onPressed: (){
-                // seachSnackbar(context);
-              },
-              icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
-            ),
-            FlatButton(
-              textColor: Colors.white,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Calendar()),
-                );
-              },
-              child: Text("Save"),
-              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-            ),
-            IconButton(
-              onPressed: (){
-                // seachSnackbar(context);
-              },
-              icon: Icon(Icons.arrow_forward_ios,color: Colors.white,),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            // Add the app bar to the CustomScrollView.
+            SliverAppBar(
+              // Provide a standard title.
+              title: Text('Wody Karmelu'),
+              // Allows the user to reveal the app bar if they begin scrolling
+              // back up the list of items.
+              floating: true,
+              // Display a placeholder widget to visualize the shrinking size.
+              flexibleSpace: Placeholder(),
+              // Make the initial height of the SliverAppBar larger than normal.
+              expandedHeight: 200,
+
+              bottom: AppBar(
+                backgroundColor: Colors.red,
+                toolbarHeight: 64.0,
+                actions: <Widget>[
+                  //for Search Button
+                  IconButton(
+                  onPressed: (){
+                    // seachSnackbar(context);
+                  },
+                    icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
+                  ),
+                  FlatButton(
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Calendar()),
+                      );
+                    },
+                    child: Text("data"),
+                    shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+                  ),
+                  IconButton(
+                    onPressed: (){
+                      // seachSnackbar(context);
+                    },
+                    icon: Icon(Icons.arrow_forward_ios,color: Colors.white,),
+                  ),
+                ],
+               ),
+
+              actions: <Widget>[
+                //for Search Button
+                PopupMenuButton<String>(
+                    onSelected: onMenuSelected,
+                    itemBuilder:(context){
+                      // returning the list of item
+                      return Constants.select.map((String choice){
+                        //passing the value
+                        onMenuSelected(choice);
+
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice),
+                        );
+                      }).toList();
+                    }
+                ),
+              ],
+
+
             ),
 
-            PopupMenuButton<String>(
-                onSelected: onMenuSelected,
-                itemBuilder:(context){
-                  // returning the list of item
-                  return Constants.select.map((String choice){
-                    //passing the value
-                    onMenuSelected(choice);
+            /*SliverList(
+              // Use a delegate to build items as they're scrolled on screen.
+              delegate: SliverChildBuilderDelegate(
+                // The builder function returns a ListTile with a title that
+                // displays the index of the current item.
+                    (context, index) => ListTile(title: Text('Item #$index')),
+                // Builds 1000 ListTiles
+                childCount: 100,
+              ),
+            ),*/
 
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
-                }
-            ),
           ],
         ),
+
+
 
         // For Drawer
         drawer: new Drawer(
