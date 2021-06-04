@@ -258,6 +258,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
+
         // For Drawer
         drawer: Container(
           width: 270,
