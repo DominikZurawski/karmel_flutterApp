@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:karmel_app/utils.dart';
+import 'package:karmel_app/globals.dart' as globals;
 
 /// The hove page which hosts the calendar
 class Calendar extends StatefulWidget {
+  //static DateTime data;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -19,6 +21,12 @@ class _MyHomePageState extends State<Calendar> {
   DateTime _rangeStart;
   DateTime _rangeEnd;
 
+  /*globals._focusedDay = DateTime.now();
+  globals._selectedDay;
+  globals._rangeStart;
+  globals._rangeEnd;
+  globals.*/
+
   _MyHomePageState();
 
   @override
@@ -27,6 +35,7 @@ class _MyHomePageState extends State<Calendar> {
 
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
+
   }
 
   @override
@@ -57,6 +66,7 @@ class _MyHomePageState extends State<Calendar> {
         _rangeStart = null; // Important to clean those
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
+
       });
 
       _selectedEvents.value = _getEventsForDay(selectedDay);
@@ -86,7 +96,7 @@ class _MyHomePageState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kalendarz'),
+        title: Text(_selectedDay.toString()),
       ),
       body: Column(
         children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karmel_app/constants/constants.dart';
 import 'package:karmel_app/calendar.dart';
+import 'package:karmel_app/theme/Styles.dart';
 
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
@@ -9,6 +10,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _choice = 0;
+  var c = Calendar();
   //for saving the index value of selected bottomNavigatinItem
   void selectedTab(index) {
     setState(() {
@@ -19,50 +21,84 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: Styles.themeData(false, context),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+
         body: CustomScrollView(
           slivers: <Widget>[
             // Add the app bar to the CustomScrollView.
             SliverAppBar(
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/background.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(16.0),
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      'Wody Karmelu',
+                      //style: TextStyle(color: Colors.white, fontSize: 26.0),
+                    ),
+                  ),
+                ),
+              ),
+
               // Provide a standard title.
-              title: Text('Wody Karmelu'),
+              //title: Text('Wody Karmelu'),
               // Allows the user to reveal the app bar if they begin scrolling
               // back up the list of items.
               floating: true,
               // Display a placeholder widget to visualize the shrinking size.
-              flexibleSpace: Placeholder(),
+              //flexibleSpace: Placeholder(),
               // Make the initial height of the SliverAppBar larger than normal.
               expandedHeight: 200,
+              pinned: true,
+              //forceElevated: innerBoxIsScrolled,
 
               bottom: AppBar(
-                backgroundColor: Colors.red,
-                toolbarHeight: 64.0,
-                actions: <Widget>[
-                  //for Search Button
-                  IconButton(
+                automaticallyImplyLeading: false,
+                leading: IconButton(
                   onPressed: (){
                     // seachSnackbar(context);
                   },
-                    icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
+                  alignment: Alignment.centerLeft,
+                  icon: Icon(Icons.arrow_back_ios,
+                    //color: Colors.white,
                   ),
-                  FlatButton(
-                    textColor: Colors.white,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Calendar()),
-                      );
-                    },
-                    child: Text("data"),
-                    shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-                  ),
+                ),
+                //backgroundColor: Colors.red,
+                toolbarHeight: 64.0,
+                centerTitle: true,
+                title: FlatButton(
+                  //textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Calendar()),
+                    );
+                  },
+                  child: Text("data"),
+                  //child: Text(Calendar.data.toString()),
+                  shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+                ),
+                actions: <Widget>[
+                  //for Search Button
+
+
                   IconButton(
                     onPressed: (){
                       // seachSnackbar(context);
                     },
-                    icon: Icon(Icons.arrow_forward_ios,color: Colors.white,),
+                    alignment: Alignment.centerRight,
+                    icon: Icon(Icons.arrow_forward_ios,
+                      //color: Colors.white,
+                    ),
                   ),
                 ],
                ),
@@ -89,7 +125,7 @@ class _HomeState extends State<Home> {
 
             ),
 
-            /*SliverList(
+            SliverList(
               // Use a delegate to build items as they're scrolled on screen.
               delegate: SliverChildBuilderDelegate(
                 // The builder function returns a ListTile with a title that
@@ -98,12 +134,10 @@ class _HomeState extends State<Home> {
                 // Builds 1000 ListTiles
                 childCount: 100,
               ),
-            ),*/
+            ),
 
           ],
         ),
-
-
 
         // For Drawer
         drawer: new Drawer(
@@ -128,7 +162,9 @@ class _HomeState extends State<Home> {
           currentAccountPicture: new GestureDetector(
             child: new CircleAvatar(
               backgroundColor: Colors.lightBlue,
-              child: new Icon(Icons.person,color: Colors.white,),
+              child: new Icon(Icons.person,
+                color: Colors.white,
+              ),
             ),
           ),
 
