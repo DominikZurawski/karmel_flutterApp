@@ -1,22 +1,52 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:karmel_app/constants/constants.dart';
 import 'package:karmel_app/calendar.dart';
 import 'package:karmel_app/theme/Styles.dart';
+import 'package:karmel_app/globals.dart' as globals;
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
+
+
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
+DateTime dats = DateTime.now();
   int _choice = 0;
-  var c = Calendar();
   //for saving the index value of selected bottomNavigatinItem
   void selectedTab(index) {
     setState(() {
       _choice = index;
     });
   }
+
+  static  List<Widget> _pages = <Widget>[
+
+    Icon(
+      Icons.call,
+      size: 150,
+    ),
+    Container(
+      padding: const EdgeInsets.all(8),
+      //height: 50,
+     // color: Colors.amber[100],
+      child: const Center(child: Text('Entry C')),
+    ),
+    Container(
+      height: 50,
+      color: Colors.amber[100],
+      child: const Center(child: Text('Entry C')),
+    ),
+
+
+    /*Icon(
+      Icons.chat,
+      size: 150,
+    ),*/
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +56,7 @@ class _HomeState extends State<Home> {
       home: Scaffold(
 
         body: CustomScrollView(
+
           slivers: <Widget>[
             // Add the app bar to the CustomScrollView.
             SliverAppBar(
@@ -33,7 +64,7 @@ class _HomeState extends State<Home> {
                 background: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/background.jpg'),
+                      image: AssetImage('assets/Wadi-es-Siah.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -48,15 +79,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
 
-              // Provide a standard title.
-              //title: Text('Wody Karmelu'),
-              // Allows the user to reveal the app bar if they begin scrolling
-              // back up the list of items.
               floating: true,
-              // Display a placeholder widget to visualize the shrinking size.
-              //flexibleSpace: Placeholder(),
-              // Make the initial height of the SliverAppBar larger than normal.
-              expandedHeight: 200,
+              expandedHeight: 300,
               pinned: true,
               //forceElevated: innerBoxIsScrolled,
 
@@ -64,6 +88,8 @@ class _HomeState extends State<Home> {
                 automaticallyImplyLeading: false,
                 leading: IconButton(
                   onPressed: (){
+                    globals.selectedDay = globals.selectedDay.subtract(new Duration(days: 1));
+                    setState(() {    });
                     // seachSnackbar(context);
                   },
                   alignment: Alignment.centerLeft,
@@ -81,10 +107,10 @@ class _HomeState extends State<Home> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Calendar()),
-                    );
+                    ).then((value) => setState(() => {}));
+
                   },
-                  child: Text("data"),
-                  //child: Text(Calendar.data.toString()),
+                  child: Text(DateFormat.d('pl_PL').format(globals.selectedDay).toString() +' '+ DateFormat.MMMM('pl_PL').format(globals.selectedDay).toString()),
                   shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                 ),
                 actions: <Widget>[
@@ -93,6 +119,8 @@ class _HomeState extends State<Home> {
 
                   IconButton(
                     onPressed: (){
+                      globals.selectedDay = globals.selectedDay.add(const Duration(days: 1));
+                      setState(() {       });
                       // seachSnackbar(context);
                     },
                     alignment: Alignment.centerRight,
@@ -104,6 +132,7 @@ class _HomeState extends State<Home> {
                ),
 
               actions: <Widget>[
+
                 //for Search Button
                 PopupMenuButton<String>(
                     onSelected: onMenuSelected,
@@ -121,22 +150,23 @@ class _HomeState extends State<Home> {
                     }
                 ),
               ],
-
-
             ),
-
             SliverList(
+              //delegate: _pages.elementAt(_choice),
               // Use a delegate to build items as they're scrolled on screen.
               delegate: SliverChildBuilderDelegate(
+
                 // The builder function returns a ListTile with a title that
                 // displays the index of the current item.
-                    (context, index) => ListTile(title: Text('Item #$index')),
+                    //(context, index) => ListTile(title: Text('Item #$index')),
+                    (context, index) => _pages.elementAt(_choice),
                 // Builds 1000 ListTiles
-                childCount: 100,
+                childCount: 1,
               ),
             ),
 
           ],
+
         ),
 
         // For Drawer
@@ -158,7 +188,6 @@ class _HomeState extends State<Home> {
 
           accountName: new Text('Karmelici Bosi'),
           //accountEmail: new Text(widget.user.email),
-
           currentAccountPicture: new GestureDetector(
             child: new CircleAvatar(
               backgroundColor: Colors.lightBlue,
@@ -169,7 +198,7 @@ class _HomeState extends State<Home> {
           ),
 
           decoration: new BoxDecoration(
-            color: Color(0xFF842203),
+            color: Color(0xFF8E220B),
           ),
         ),
         new InkWell(
@@ -266,10 +295,11 @@ class _HomeState extends State<Home> {
     }
   }
 
+
   //for bottom navigationbar
   Widget onBottomNavigation(BuildContext context){
-    return BottomNavigationBar(
 
+    return BottomNavigationBar(
       //current index will manage wchich element need to be selected
       currentIndex: _choice,
       type: BottomNavigationBarType.shifting,
@@ -291,6 +321,6 @@ class _HomeState extends State<Home> {
       onTap: (index){
         selectedTab(index);
       },
-    );
+   );
   }
 }

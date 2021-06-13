@@ -5,37 +5,29 @@ import 'package:karmel_app/globals.dart' as globals;
 
 /// The hove page which hosts the calendar
 class Calendar extends StatefulWidget {
-  //static DateTime data;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _CalendarState createState() => _CalendarState();
 }
 
-class _MyHomePageState extends State<Calendar> {
+class _CalendarState extends State<Calendar> {
   ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
-  DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay;
+  //DateTime _focusedDay = DateTime.now();
+  //DateTime _selectedDay;
   DateTime _rangeStart;
   DateTime _rangeEnd;
 
-  /*globals._focusedDay = DateTime.now();
-  globals._selectedDay;
-  globals._rangeStart;
-  globals._rangeEnd;
-  globals.*/
-
-  _MyHomePageState();
+  _CalendarState();
 
   @override
   void initState() {
     super.initState();
 
-    _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
-
+    //globals.selectedDay = globals.focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(globals.selectedDay));
   }
 
   @override
@@ -59,10 +51,10 @@ class _MyHomePageState extends State<Calendar> {
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
+    if (!isSameDay(globals.selectedDay, selectedDay)) {
       setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
+        globals.selectedDay = selectedDay;
+        globals.focusedDay = focusedDay;
         _rangeStart = null; // Important to clean those
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
@@ -75,8 +67,8 @@ class _MyHomePageState extends State<Calendar> {
 
   void _onRangeSelected(DateTime start, DateTime end, DateTime focusedDay) {
     setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
+      globals.selectedDay = null;
+      globals.focusedDay = focusedDay;
       _rangeStart = start;
       _rangeEnd = end;
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
@@ -96,7 +88,7 @@ class _MyHomePageState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_selectedDay.toString()),
+        title: Text('Kalendarz wydarzeń'),
       ),
       body: Column(
         children: [
@@ -104,8 +96,8 @@ class _MyHomePageState extends State<Calendar> {
             locale: 'pl_PL',
             firstDay: kFirstDay,
             lastDay: kLastDay,
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            focusedDay: globals.focusedDay,
+            selectedDayPredicate: (day) => isSameDay(globals.selectedDay, day),
             rangeStartDay: _rangeStart,
             rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
@@ -126,7 +118,7 @@ class _MyHomePageState extends State<Calendar> {
               }
             },
             onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
+              globals.focusedDay = focusedDay;
             },
           ),
           const SizedBox(height: 8.0),
