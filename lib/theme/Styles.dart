@@ -57,7 +57,7 @@ abstract class Styles {
     fontSize: 16.0,
   );
   static const TextStyle defaultButtonTextStyle =
-  TextStyle(color: Styles.whiteColor, fontSize: 20);
+      TextStyle(color: Styles.whiteColor, fontSize: 20);
 
   static const TextStyle profileTextStyleBlack = TextStyle(
     color: Styles.blackColor,
