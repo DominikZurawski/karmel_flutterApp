@@ -35,6 +35,8 @@ dependencies:
   url_launcher: ^6.0.6
   just_audio: ^0.7.4
   audio_video_progress_bar: ^0.4.0
+  auto_size_text: ^2.1.0
+  google_fonts: ^2.1.0
 
 
 

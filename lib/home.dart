@@ -10,17 +10,16 @@ import 'notifiers/progress_notifier.dart';
 import 'notifiers/repeat_button_notifier.dart';
 import 'page_manager.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
-
-
   _HomeState createState() => _HomeState();
 }
+
 late final PageManager _pageManager;
+
 class _HomeState extends State<Home> {
-
-
   int _choice = 0;
   //for saving the index value of selected bottomNavigatinItem
   void selectedTab(index) {
@@ -42,17 +41,45 @@ class _HomeState extends State<Home> {
   }
 
   static  List<Widget> _pages = <Widget>[
-    Container(
-      padding: const EdgeInsets.all(8),
-      //height: 50,
-     // color: Colors.amber[100],
-      child: const Center(child:
-            Text("\n \n "
-                "Temu kto ma Boga,\n" +
-                 "nie brakuje niczego.\n" +
-                 "Jedyny Bóg wystarcza.")
+    Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Image.asset(
+            '/2qOa.gif',
+            height: 448,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            height: 448.0,
+            child: FittedBox(
+            fit: BoxFit.none,
+              child: Container(
+                width: 250.0,
+                height: 250.0,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2.0)
+                ),
+                  child: Center(
+                    child: AutoSizeText(
+                      'Temu kto ma Boga,\n' +
+                      'nie brakuje niczego.\n' +
+                      'Jedyny Bóg wystarcza.',
+
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 6,
+                      style: GoogleFonts.getFont(
+                          'Lato',
+                          fontSize: 24,
+                          color: Colors.white),
+                    ),
+                  ),
+        ),
       ),
     ),
+    ]
+  ),
+
     Container(
         padding: const EdgeInsets.all(8),
         //height: 500,
@@ -115,10 +142,6 @@ class _HomeState extends State<Home> {
     ]
         ),
     ),
-    /*Icon(
-      Icons.call,
-      size: 150,
-    ),*/
     Container(
       padding: const EdgeInsets.all(8),
       //height: 500,
@@ -229,10 +252,6 @@ class _HomeState extends State<Home> {
               ]
               )
     ),
-    /*Icon(
-      Icons.chat,
-      size: 150,
-    ),*/
   ];
 
   @override
@@ -241,23 +260,19 @@ class _HomeState extends State<Home> {
       theme: Styles.themeData(false, context),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-
         body: CustomScrollView(
-
           slivers: <Widget>[
             // Add the app bar to the CustomScrollView.
             SliverAppBar(
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   decoration: BoxDecoration(
-
                     image: DecorationImage(
                       image: AssetImage('assets/Wadi-es-Siah.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),
                   child: Container(
-
                     padding: EdgeInsets.all(16.0),
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -267,25 +282,20 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-
               floating: true,
               expandedHeight: 240,
               pinned: true,
-
               brightness: Brightness.light,
               backgroundColor: Colors.transparent,
               iconTheme: IconThemeData(
                 color: Colors.white,
               ),
-              //forceElevated: innerBoxIsScrolled,
-
               bottom: AppBar(
                 automaticallyImplyLeading: false,
                 leading: IconButton(
                   onPressed: (){
                     globals.selectedDay = globals.selectedDay?.subtract(new Duration(days: 1));
                     setState(() {    });
-                    // seachSnackbar(context);
                   },
                   alignment: Alignment.centerLeft,
                   icon: Icon(Icons.arrow_back_ios,
@@ -303,7 +313,6 @@ class _HomeState extends State<Home> {
                       MaterialPageRoute(
                           builder: (context) => Calendar()),
                     ).then((value) => setState(() => {}));
-
                   },
                   child: Text(DateFormat.d('pl_PL').format(globals.selectedDay!).toString() +' '+ DateFormat.MMMM('pl_PL').format(globals.selectedDay!).toString()),
                   shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
@@ -322,9 +331,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
                ),
-
               actions: <Widget>[
-
                 //for Search Button
                 PopupMenuButton<String>(
                     onSelected: onMenuSelected,
@@ -333,7 +340,6 @@ class _HomeState extends State<Home> {
                       return Constants.select.map((String choice){
                         //passing the value
                         onMenuSelected(choice);
-
                         return PopupMenuItem<String>(
                           value: choice,
                           child: Text(choice),
@@ -347,7 +353,6 @@ class _HomeState extends State<Home> {
               //delegate: _pages.elementAt(_choice),
               // Use a delegate to build items as they're scrolled on screen.
               delegate: SliverChildBuilderDelegate(
-
                 // The builder function returns a ListTile with a title that
                 // displays the index of the current item.
                     //(context, index) => ListTile(title: Text('Item #$index')),
@@ -356,20 +361,16 @@ class _HomeState extends State<Home> {
                 childCount: 1,
               ),
             ),
-
-
           ],
-
-
         ),
-
         // For Drawer
-        drawer: new Drawer(
-          child: userDrawer(),
+        drawer: Container(
+          width: 270,
+          child:  new Drawer(
+            child: userDrawer(),
+          ),
         ),
-        //Bottom Navigation bar
-        bottomNavigationBar: onBottomNavigation(context),
-
+        bottomNavigationBar: onBottomNavigation(context), //Bottom Navigation bar
       ),
     );
   }
@@ -378,23 +379,24 @@ class _HomeState extends State<Home> {
   Widget userDrawer(){
     return ListView(
       children: <Widget>[
+        //
         new UserAccountsDrawerHeader(
-
           accountName: new Text('Karmelici Bosi'),
           accountEmail: new Text(''),
           currentAccountPicture: new GestureDetector(
             child: new CircleAvatar(
-              backgroundColor: Colors.lightBlue,
-              child: new Icon(Icons.person,
-                color: Colors.white,
+              //backgroundColor: Colors.lightBlue,
+              child: new Image.asset(
+                'ikona.png',
               ),
             ),
           ),
-
           decoration: new BoxDecoration(
+
             //color: Color(0xFF8E220B),
           ),
         ),
+        //
         new InkWell(
           onTap: (){
             _launchURL('https://karmel.pl');
@@ -408,7 +410,6 @@ class _HomeState extends State<Home> {
         ),
         new InkWell(
           onTap: (){
-
           },
           child: new ListTile(
             title: new Text('Powołania',style: new TextStyle(
@@ -444,7 +445,6 @@ class _HomeState extends State<Home> {
               MaterialPageRoute(
                   builder: (context) => Calendar()),
             );
-
           },
           child: new ListTile(
             title: new Text('Kalendarz',style: new TextStyle(
@@ -452,7 +452,6 @@ class _HomeState extends State<Home> {
                 )
             ),
             leading: new Icon(Icons.favorite,color: Colors.lightBlue,),
-
           ),
         ),
 
@@ -460,6 +459,7 @@ class _HomeState extends State<Home> {
         new Divider(
           color: Colors.brown,
           height: 4.0,
+
         ),
         new InkWell(
           onTap: (){},
