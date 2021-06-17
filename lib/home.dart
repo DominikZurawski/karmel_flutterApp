@@ -65,7 +65,6 @@ class _HomeState extends State<Home> {
                       'Temu kto ma Boga,\n' +
                       'nie brakuje niczego.\n' +
                       'Jedyny Bóg wystarcza.',
-
                       overflow: TextOverflow.ellipsis,
                       maxLines: 6,
                       style: GoogleFonts.getFont(
