@@ -5,16 +5,22 @@ import 'package:karmel_app/theme/Styles.dart';
 import 'package:karmel_app/globals.dart' as globals;
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:just_audio/just_audio.dart';
+import 'notifiers/play_button_notifier.dart';
+import 'notifiers/progress_notifier.dart';
+import 'notifiers/repeat_button_notifier.dart';
+import 'page_manager.dart';
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+
 
 class Home extends StatefulWidget {
 
 
   _HomeState createState() => _HomeState();
 }
-
+late final PageManager _pageManager;
 class _HomeState extends State<Home> {
-DateTime dats = DateTime.now();
+
+
   int _choice = 0;
   //for saving the index value of selected bottomNavigatinItem
   void selectedTab(index) {
@@ -23,21 +29,96 @@ DateTime dats = DateTime.now();
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _pageManager = PageManager();
+  }
+
+  @override
+  void dispose() {
+    _pageManager.dispose();
+    super.dispose();
+  }
+
   static  List<Widget> _pages = <Widget>[
     Container(
       padding: const EdgeInsets.all(8),
       //height: 50,
      // color: Colors.amber[100],
       child: const Center(child:
-            Text("Temu kto ma Boga,\n" +
+            Text("\n \n "
+                "Temu kto ma Boga,\n" +
                  "nie brakuje niczego.\n" +
                  "Jedyny Bóg wystarcza.")
       ),
     ),
-    Icon(
+    Container(
+        padding: const EdgeInsets.all(8),
+        //height: 500,
+        //color: Colors.amber[100],
+        child: Column(
+          //alignment: Alignment.topCenter,
+          //clipBehavior: Clip.hardEdge,
+            children: <Widget>[
+              Text('\n'),
+              AudioProgressBar(),
+              AudioControlButtons(),
+              Text("\nZnam dobrze źródło co tryska i płynie, \n"+
+                  "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "Wiem gdzie swe wody ma ten zdrój kryniczny,\n"+
+              "Ukryty w głębi tajemnic i wieczny,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "Początku jego nie znam, bo go nie ma,\n"+
+              "Lecz wiem, że każdy byt swą mocą trzyma,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "Wiem, że nie może być nic piękniejszego,\n"+
+              "Że wszelka piękność pochodzi od Niego,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "Wiem, że w Nim nie ma nic z ziemskich istności,\n"+
+              "Że nic nie zrówna Jego wszechmocności,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "Blask jego światła nigdy nie zachodzi,\n"+
+              "Bo wszelka światłość od Niego pochodzi,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "A tryskające z niego życia wody\n"+
+              "Zraszają otchłań, niebiosa, narody,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "Potok istności w tym źródle wezbrany\n"+
+              "W potędze swojej jest niepowstrzymany,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "To wieczne źródło znalazło ukrycie,\n"+
+              "W Chlebie Żywota, aby dać nam życie,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "A potok, który od tych dwóch pochodzi,\n"+
+              "Żadnej istnością swoją nie przechodzi,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              "\n"+
+              "I stąd podnosi głos, wzywa stworzenia,\n"+
+              "By się syciły w zdrojach Utajenia,\n"+
+              "Co się spełniły wśród nocy.\n"+
+              " \n"+
+              "To jest to źródło, którego pożądam,\n"+
+              "To jest Chleb Życia, który tu oglądam,\n"+
+              "Choć się dobywa wśród nocy.\n"+
+              " \n"+
+                 " (Znam dobrze źródło, czyli śpiew duszy cieszącej się poznaniem Boga przez wiarę, św. Jan od Krzyża) \n" )
+    ]
+        ),
+    ),
+    /*Icon(
       Icons.call,
       size: 150,
-    ),
+    ),*/
     Container(
       padding: const EdgeInsets.all(8),
       //height: 500,
@@ -188,7 +269,7 @@ DateTime dats = DateTime.now();
               ),
 
               floating: true,
-              expandedHeight: 300,
+              expandedHeight: 240,
               pinned: true,
 
               brightness: Brightness.light,
@@ -202,7 +283,7 @@ DateTime dats = DateTime.now();
                 automaticallyImplyLeading: false,
                 leading: IconButton(
                   onPressed: (){
-                    globals.selectedDay = globals.selectedDay.subtract(new Duration(days: 1));
+                    globals.selectedDay = globals.selectedDay?.subtract(new Duration(days: 1));
                     setState(() {    });
                     // seachSnackbar(context);
                   },
@@ -224,16 +305,13 @@ DateTime dats = DateTime.now();
                     ).then((value) => setState(() => {}));
 
                   },
-                  child: Text(DateFormat.d('pl_PL').format(globals.selectedDay).toString() +' '+ DateFormat.MMMM('pl_PL').format(globals.selectedDay).toString()),
+                  child: Text(DateFormat.d('pl_PL').format(globals.selectedDay!).toString() +' '+ DateFormat.MMMM('pl_PL').format(globals.selectedDay!).toString()),
                   shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                 ),
                 actions: <Widget>[
-                  //for Search Button
-
-
                   IconButton(
                     onPressed: (){
-                      globals.selectedDay = globals.selectedDay.add(const Duration(days: 1));
+                      globals.selectedDay = globals.selectedDay?.add(const Duration(days: 1));
                       setState(() {       });
                       // seachSnackbar(context);
                     },
@@ -303,7 +381,7 @@ DateTime dats = DateTime.now();
         new UserAccountsDrawerHeader(
 
           accountName: new Text('Karmelici Bosi'),
-          //accountEmail: new Text(widget.user.email),
+          accountEmail: new Text(''),
           currentAccountPicture: new GestureDetector(
             child: new CircleAvatar(
               backgroundColor: Colors.lightBlue,
@@ -378,10 +456,7 @@ DateTime dats = DateTime.now();
           ),
         ),
 
-        //
         //Divider of drawer
-        //
-
         new Divider(
           color: Colors.brown,
           height: 4.0,
@@ -407,12 +482,12 @@ DateTime dats = DateTime.now();
         new InkWell(
           onTap: (){
             //FirebaseAuth.instance.signOut();
-            Navigator.push(
-                context,
-                MaterialPageRoute(
+            //Navigator.push(
+                //context,
+                //MaterialPageRoute(
                   //builder: (context)=>LandingPage(),
-                )
-            );
+                //)
+            //);
           },
           child: new ListTile(
             title: new Text('Sign out',style: new TextStyle(
@@ -424,6 +499,7 @@ DateTime dats = DateTime.now();
       ],
     );
   }
+
   //When we select any Popup Menu
   void onMenuSelected(String choice){
     if(choice==Constants.aboutUs){
@@ -433,10 +509,8 @@ DateTime dats = DateTime.now();
     }
   }
 
-
   //for bottom navigationbar
   Widget onBottomNavigation(BuildContext context){
-
     return BottomNavigationBar(
       //current index will manage wchich element need to be selected
       currentIndex: _choice,
@@ -462,6 +536,7 @@ DateTime dats = DateTime.now();
    );
   }
 }
+
 _launchURL(String  s) async {
   var url = s;
   if (await canLaunch(url)) {
@@ -470,3 +545,152 @@ _launchURL(String  s) async {
     throw 'Could not launch $url';
   }
 }
+
+class AudioProgressBar extends StatelessWidget {
+  const AudioProgressBar({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<ProgressBarState>(
+      valueListenable: _pageManager.progressNotifier,
+      builder: (_, value, __) {
+        return ProgressBar(
+          progress: value.current,
+          buffered: value.buffered,
+          total: value.total,
+          onSeek: _pageManager.seek,
+        );
+      },
+    );
+  }
+}
+
+class AudioControlButtons extends StatelessWidget {
+  const AudioControlButtons({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 90,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          PlayButton(),
+          RepeatButton(),
+          //PreviousSongButton(),
+          //NextSongButton(),
+          //ShuffleButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class RepeatButton extends StatelessWidget {
+  const RepeatButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<RepeatState>(
+      valueListenable: _pageManager.repeatButtonNotifier,
+      builder: (context, value, child) {
+        Icon icon;
+        switch (value) {
+          case RepeatState.off:
+            icon = Icon(Icons.repeat, size: 44.0, color: Colors.grey);
+            break;
+          case RepeatState.repeatSong:
+            icon = Icon(Icons.repeat_one, size: 44.0,);
+            break;
+          case RepeatState.repeatPlaylist:
+            icon = Icon(Icons.repeat, size: 44.0,);
+            break;
+        }
+        return IconButton(
+          icon: icon,
+          onPressed: _pageManager.onRepeatButtonPressed,
+        );
+      },
+    );
+  }
+}
+
+class PlayButton extends StatelessWidget {
+  const PlayButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<ButtonState>(
+      valueListenable: _pageManager.playButtonNotifier,
+      builder: (_, value, __) {
+        switch (value) {
+          case ButtonState.loading:
+            return Container(
+              margin: EdgeInsets.all(8.0),
+              width: 44.0,
+              height: 44.0,
+              child: CircularProgressIndicator(),
+            );
+          case ButtonState.paused:
+            return IconButton(
+              icon: Icon(Icons.play_arrow),
+              iconSize: 44.0,
+              onPressed: _pageManager.play,
+            );
+          case ButtonState.playing:
+            return IconButton(
+              icon: Icon(Icons.pause),
+              iconSize: 44.0,
+              onPressed: _pageManager.pause,
+            );
+        }
+      },
+    );
+  }
+}
+
+/*class NextSongButton extends StatelessWidget {
+  const NextSongButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: _pageManager.isLastSongNotifier,
+      builder: (_, isLast, __) {
+        return IconButton(
+          icon: Icon(Icons.skip_next),
+          onPressed: (isLast) ? null : _pageManager.onNextSongButtonPressed,
+        );
+      },
+    );
+  }
+}*/
+
+/*class ShuffleButton extends StatelessWidget {
+  const ShuffleButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: _pageManager.isShuffleModeEnabledNotifier,
+      builder: (context, isEnabled, child) {
+        return IconButton(
+          icon: (isEnabled)
+              ? Icon(Icons.shuffle)
+              : Icon(Icons.shuffle, color: Colors.grey),
+          onPressed: _pageManager.onShuffleButtonPressed,
+        );
+      },
+    );
+  }
+}*/
+/*class PreviousSongButton extends StatelessWidget {
+  const PreviousSongButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: _pageManager.isFirstSongNotifier,
+      builder: (_, isFirst, __) {
+        return IconButton(
+          icon: Icon(Icons.skip_previous),
+          onPressed:
+          (isFirst) ? null : _pageManager.onPreviousSongButtonPressed,
+        );
+      },
+    );
+  }
+}*/

@@ -11,23 +11,26 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  ValueNotifier<List<Event>> _selectedEvents;
+  //ValueNotifier<List<Event>> _selectedEvents = ValueNotifier(_getEventsForDay(globals.selectedDay));
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
   //DateTime _focusedDay = DateTime.now();
   //DateTime _selectedDay;
-  DateTime _rangeStart;
-  DateTime _rangeEnd;
+  DateTime? _rangeStart;
+  DateTime? _rangeEnd;
 
-  _CalendarState();
+  var _selectedEvents;
 
   @override
   void initState() {
     super.initState();
 
-    //globals.selectedDay = globals.focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(globals.selectedDay));
+    globals.selectedDay = globals.focusedDay;
+    ValueNotifier<List<Event>> _selectedEvents1 = ValueNotifier(_getEventsForDay(globals.selectedDay));
+    //_selectedEvents = ValueNotifier(_getEventsForDay(globals.selectedDay));
+    _CalendarState();
+    _selectedEvents = _selectedEvents1;
   }
 
   @override
@@ -36,7 +39,7 @@ class _CalendarState extends State<Calendar> {
     super.dispose();
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
+  List<Event> _getEventsForDay(DateTime? day) {
     // Implementation example
     return kEvents[day] ?? [];
   }
@@ -65,7 +68,7 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
-  void _onRangeSelected(DateTime start, DateTime end, DateTime focusedDay) {
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime? focusedDay) {
     setState(() {
       globals.selectedDay = null;
       globals.focusedDay = focusedDay;
@@ -96,7 +99,7 @@ class _CalendarState extends State<Calendar> {
             locale: 'pl_PL',
             firstDay: kFirstDay,
             lastDay: kLastDay,
-            focusedDay: globals.focusedDay,
+            focusedDay: globals.focusedDay!,
             selectedDayPredicate: (day) => isSameDay(globals.selectedDay, day),
             rangeStartDay: _rangeStart,
             rangeEndDay: _rangeEnd,
