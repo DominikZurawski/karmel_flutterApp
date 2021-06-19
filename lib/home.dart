@@ -12,9 +12,6 @@ import 'page_manager.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-//import 'package:flutter/cupertino.dart';
-//import 'package:flutter/rendering.dart';
-//import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();

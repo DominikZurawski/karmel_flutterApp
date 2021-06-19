@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
 import 'package:karmel_app/globals.dart' as globals;
 
 class VideoBar extends StatefulWidget {

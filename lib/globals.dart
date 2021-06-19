@@ -1,5 +1,4 @@
 library karmel_app.globals;
-
 import 'page_manager.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,10 +25,6 @@ String videoUrl = 'https://www.youtube.com/watch?v=62utj_XTcS4';
 List<String> ids = [
   '62utj_XTcS4',
   //'6jZDSSZZxjQ',
-  //'p2lYr3vM_1w',
-  //'7QUtEmBT_-w',
-  //'34_PXCzGw1M',
-  //'62utj_XTcS4',
 ];
 
 String silverbarImage = 'assets/Wadi-es-Siah.jpg';
