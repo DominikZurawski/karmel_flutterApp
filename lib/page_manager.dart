@@ -5,6 +5,8 @@ import 'notifiers/play_button_notifier.dart';
 import 'notifiers/progress_notifier.dart';
 import 'notifiers/repeat_button_notifier.dart';
 
+import 'package:karmel_app/globals.dart' as globals;
+
 class PageManager {
   final currentSongTitleNotifier = ValueNotifier<String>('');
   final playlistNotifier = ValueNotifier<List<String>>([]);
@@ -35,12 +37,12 @@ class PageManager {
   }
 
   void _setInitialPlaylist() async {
-    const prefix = 'https://www.soundhelix.com/examples/mp3';
+    //const prefix = 'https://www.soundhelix.com/examples/mp3';
     //final song1 = 'assets/Track03.cda';
-    final song1 = Uri.parse('https://www.karmel.pl/wp-content/uploads/2021/03/audio_rekolekcje_wielki_post_2021_przemysl_1.mp3');
+    final song1 = Uri.parse(globals.codziennikUriAudio);
     //final song1 = Uri.parse('$prefix/SoundHelix-Song-1.mp3');
-    final song2 = Uri.parse('$prefix/SoundHelix-Song-2.mp3');
-    final song3 = Uri.parse('$prefix/SoundHelix-Song-3.mp3');
+    //final song2 = Uri.parse('$prefix/SoundHelix-Song-2.mp3');
+    //final song3 = Uri.parse('$prefix/SoundHelix-Song-3.mp3');
     _playlist = ConcatenatingAudioSource(children: [
       AudioSource.uri(song1, tag: 'Song 1'),
       //AudioSource.uri(song2, tag: 'Song 2'),
@@ -127,7 +129,6 @@ class PageManager {
       }
     });
   }
-
 
   void play() async {
     _audioPlayer.play();
