@@ -5,7 +5,6 @@ import 'package:karmel_app/globals.dart' as globals;
 
 /// The hove page which hosts the calendar
 class Calendar extends StatefulWidget {
-
   @override
   _CalendarState createState() => _CalendarState();
 }
@@ -27,7 +26,8 @@ class _CalendarState extends State<Calendar> {
     super.initState();
 
     globals.selectedDay = globals.focusedDay;
-    ValueNotifier<List<Event>> _selectedEvents1 = ValueNotifier(_getEventsForDay(globals.selectedDay));
+    ValueNotifier<List<Event>> _selectedEvents1 =
+        ValueNotifier(_getEventsForDay(globals.selectedDay));
     //_selectedEvents = ValueNotifier(_getEventsForDay(globals.selectedDay));
     _CalendarState();
     _selectedEvents = _selectedEvents1;
@@ -61,7 +61,6 @@ class _CalendarState extends State<Calendar> {
         _rangeStart = null; // Important to clean those
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
-
       });
 
       _selectedEvents.value = _getEventsForDay(selectedDay);
