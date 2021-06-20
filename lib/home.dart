@@ -77,11 +77,13 @@ class _HomeState extends State<Home> {
   }
 
   static List<Widget> _pages = <Widget>[
-    Stack(alignment: Alignment.center, children: <Widget>[
+    Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
       Image.network(
         globals.kolatkaImage,
         //'/2qOa.gif',
-        height: 448,
+        height: 648,//448
         width: double.infinity,
         fit: BoxFit.cover,
       ),
@@ -124,6 +126,7 @@ class _HomeState extends State<Home> {
           ]),
     ),
     Container(
+
         //Strona Studnia
         padding: const EdgeInsets.all(8),
         //height: 500,
@@ -252,11 +255,13 @@ class _HomeState extends State<Home> {
                 // displays the index of the current item.
                 //(context, index) => ListTile(title: Text('Item #$index')),
                 (context, index) => _pages.elementAt(_choice),
+
                 // Builds 1000 ListTiles
                 childCount: 1,
               ),
             ),
           ],
+
         ),
 
         // For Drawer
@@ -310,7 +315,9 @@ class _HomeState extends State<Home> {
           ),
         ),
         new InkWell(
-          onTap: () {},
+          onTap: () {
+            _launchURL('https://www.karmel.pl/powolania/');
+          },
           child: new ListTile(
             title: new Text('Powołania',
                 style: new TextStyle(
@@ -323,7 +330,9 @@ class _HomeState extends State<Home> {
           ),
         ),
         new InkWell(
-          onTap: () {},
+          onTap: () {
+            _launchURL('https://www.karmel.pl/instytucje/karmelitanski-instytut-duchowosci/');
+          },
           child: new ListTile(
             title: new Text('KiD',
                 style: new TextStyle(
