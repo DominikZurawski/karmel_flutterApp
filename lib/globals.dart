@@ -1,4 +1,8 @@
 library karmel_app.globals;
+import 'dart:html';
+
+import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'page_manager.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +10,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'package:karmel_app/audio.dart';
+
+var data;
+
+late int index;
+
+
 
 DateTime? focusedDay; // = DateTime.now();
 DateTime? selectedDay;
@@ -29,8 +39,9 @@ List<String> ids = [
 
 String silverbarImage = 'assets/Wadi-es-Siah.jpg';
 String kolatkaImage = 'https://i.gifer.com/2qOa.gif';
-
 String kolatkaSentence =
+    //data.karmel_apps
+    //.edges[index - 1].node.Sentencja;
     'Temu kto ma Boga,\n' + 'nie brakuje niczego.\n' + 'Jedyny Bóg wystarcza.';
 String codziennikUriAudio =
     'https://www.karmel.pl/wp-content/uploads/2021/03/audio_rekolekcje_wielki_post_2021_przemysl_1.mp3';
