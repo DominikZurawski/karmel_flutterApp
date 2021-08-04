@@ -27,7 +27,7 @@ class PageManager {
   void _init() async {
     _audioPlayer = AudioPlayer();
     //_audioPlayer.setAsset('zrodlo.mp3');
-    _audioPlayer.setFilePath('assets/zrodlo.mp3');
+    //_audioPlayer.setFilePath('assets/zrodlo.mp3');
     _setInitialPlaylist();
     _listenForChangesInPlayerState();
     _listenForChangesInPlayerPosition();
